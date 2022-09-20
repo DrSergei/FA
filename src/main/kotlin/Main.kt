@@ -40,13 +40,18 @@ class FA(data: File) {
     }
 
     override fun toString(): String {
+        val mapper = table.keys.map { it.second }.toSet().toList().mapIndexed { index, it -> Pair(it, index) }.toMap()
         val tmp = StringBuilder()
         tmp.append("${stateCount}\n")
         tmp.append("${symbolCount}\n")
-        tmp.append("${startState}\n")
-        tmp.append("${endStates}\n")
+        tmp.append("${mapper[startState]}\n")
+        tmp.append("${endStates.map { mapper[it]}.joinToString(separator = " ", prefix = "", postfix = "")}\n")
         table.forEach {
-            tmp.append("${it.key.second} ${it.key.first} ${it.value}\n")
+            tmp.append(
+                "${mapper[it.key.second]} ${it.key.first} ${
+                    mapper[it.value]
+                }\n"
+            )
         }
         return tmp.toString()
     }
