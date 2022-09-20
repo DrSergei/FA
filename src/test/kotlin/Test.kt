@@ -5,7 +5,7 @@ import kotlin.test.Test
 internal class Test {
     @Test
     fun testExecute() {
-        val fa = FA(File("input.txt"))
+        val fa = FA(File("src/test/kotlin/input.txt"))
         assertEquals(false, fa.execute(listOf()))
         assertEquals(true, fa.execute(listOf(0)))
         assertEquals(false, fa.execute(listOf(0, 0)))
@@ -17,7 +17,7 @@ internal class Test {
 
     @Test
     fun testToString() {
-        val fa = FA(File("input.txt"))
+        val fa = FA(File("src/test/kotlin/input.txt"))
         assertEquals(
             "10\n" +
                     "2\n" +
