@@ -16,7 +16,7 @@ internal class Test {
     }
 
     @Test
-    fun testToString() {
+    fun testAsDFA() {
         val fa = FA(File("src/test/kotlin/input.txt"))
         assertEquals(
             "10\n" +
@@ -32,7 +32,7 @@ internal class Test {
                     "3 0 4\n" +
                     "3 1 2\n" +
                     "4 0 4\n" +
-                    "4 1 2\n", fa.toString()
+                    "4 1 2\n", fa.toDFA()
         )
     }
 }
