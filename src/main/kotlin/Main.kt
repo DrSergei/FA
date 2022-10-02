@@ -1,11 +1,11 @@
 import java.io.*
 
 class FA(data: File) {
-    private var stateCount: Int
-    private var symbolCount: Int
-    private var startState: Set<Int>
-    private var endStates: MutableSet<Set<Int>> = mutableSetOf()
-    private var table: MutableMap<Pair<Int, Set<Int>>, Set<Int>> = mutableMapOf()
+    private val stateCount: Int
+    private val symbolCount: Int
+    private val startState: Set<Int>
+    private val endStates: MutableSet<Set<Int>> = mutableSetOf()
+    private val table: MutableMap<Pair<Int, Set<Int>>, Set<Int>> = mutableMapOf()
 
     init {
         val reader = data.reader(Charsets.UTF_8).readLines().toMutableList()
@@ -70,7 +70,7 @@ class FA(data: File) {
         while (true) {
             var newSets = listOf<Set<Set<Int>>>()
             var oldSet = setOf<Set<Int>>()
-            var flag = false
+            var optimum = true
             buffer.forEach { set ->
                 repeat(symbolCount) { symbol ->
                     val tmp = mutableSetOf<Pair<Set<Int>, Set<Int>>>()
@@ -80,19 +80,18 @@ class FA(data: File) {
                     val new = tmp.groupBy { pair -> buffer.find { it.contains(pair.first) } }
                         .map { it.value.map { it.second }.toSet() }
                     if (new.size > 1) {
-                        flag = true
+                        optimum = false
                         newSets = new
                         oldSet = set
                         return@forEach
                     }
                 }
             }
-            if (!flag) {
+            if (optimum) {
                 break
-            } else {
-                buffer.remove(oldSet)
-                buffer.addAll(newSets)
             }
+            buffer.remove(oldSet)
+            buffer.addAll(newSets)
         }
 
         val mapper = buffer.mapIndexed { index, it -> Pair(it, index) }.toMap()
@@ -128,10 +127,11 @@ class FA(data: File) {
 
 /**
 Readline path to file with FA description.
-After readline with command in {"exit", "execute", "toDFA"}.
+After readline with command in {"exit", "execute", "toDFA". "min"}.
 If "exit" exit program.
 If "execute" read string and print FA output.
 If "toDFA" transform FA to DFA and print its description.
+If "min" minimize DFA.
  */
 fun main() {
     val fa = FA(File(readLine() ?: "input.txt"))
