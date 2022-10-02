@@ -19,7 +19,7 @@ internal class Test {
     fun testAsDFA() {
         val fa = FA(File("src/test/kotlin/input.txt"))
         assertEquals(
-            "10\n" +
+            "5\n" +
                     "2\n" +
                     "0\n" +
                     "1 4\n" +
@@ -33,6 +33,21 @@ internal class Test {
                     "3 1 2\n" +
                     "4 0 4\n" +
                     "4 1 2\n", fa.toDFA()
+        )
+    }
+
+    @Test
+    fun testMin() {
+        val fa = FA(File("src/test/kotlin/min.txt"))
+        assertEquals(
+            "2\n" +
+                    "2\n" +
+                    "0\n" +
+                    "0\n" +
+                    "0 0 0\n" +
+                    "0 1 1\n" +
+                    "1 0 0\n" +
+                    "1 1 1\n", fa.minimize()
         )
     }
 }
