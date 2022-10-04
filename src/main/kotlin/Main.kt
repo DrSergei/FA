@@ -127,7 +127,7 @@ class FA(data: File) {
 
 /**
 Readline path to file with FA description.
-After readline with command in {"exit", "execute", "toDFA". "min"}.
+After readline with command in {"exit", "execute", "toDFA", "min"}.
 If "exit" exit program.
 If "execute" read string and print FA output.
 If "toDFA" transform FA to DFA and print its description.
